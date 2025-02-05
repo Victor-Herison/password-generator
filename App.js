@@ -7,7 +7,7 @@ const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 const charsArray = chars.split('');
 
 export default function App() {
-  const [size, setSize] = useState(20)
+  const [size, setSize] = useState(8)
   const [passwordValue, setPasswordValue] = useState("")
   const [modalVisible, setModalVisible] = useState(false)
 
