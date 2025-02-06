@@ -1,16 +1,23 @@
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, Clipboard } from 'react-native'
+import { Pressable } from 'react-native-web'
+// import * as Clipboard from 'expo-clipboard'
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export function ModalPassword() {
-
+export function ModalPassword({password, handleClose}) {
+    // const copyClipboard= async () =>{
+    //   await Clipboard.setStringAsync(password);
+    //   alert("copiado para area de transferencia")
+    // }
     return (
       <View style={styles.container}>
         <View style={styles.modal}>
           <Text style={{fontSize: 26, fontWeight:"bold", marginTop:10, marginBottom:20}}>Senha gerada</Text>
-          <View style={styles.displaySenha}>
-            <Text style={styles.text}> senha blabalbla</Text>
-          </View >
+          <Pressable style={styles.displaySenha} onPress={navigator.clipboard.writeText(password)}>{/*web */}
+          {/*<Pressable style={styles.displaySenha} onPress={copyClipboard}> mobile*/}
+            <Text style={styles.text}>{password}</Text>
+          </Pressable >
             <View style={{flexDirection:"row", justifyContent:"space-between", width:"90%", marginTop:10, marginBottom:10}}>
-              <TouchableOpacity style={styles.backButton}>
+              <TouchableOpacity style={styles.backButton} onPress={handleClose}>
                 <Text style={{fontSize: 16, fontWeight:"bold", color:"#0E0E0E", marginBottom:4}}>Voltar</Text>
               </TouchableOpacity>
 
