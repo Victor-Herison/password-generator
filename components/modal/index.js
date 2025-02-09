@@ -1,19 +1,29 @@
-import { Text, View, StyleSheet, TouchableOpacity, Clipboard } from 'react-native'
-import { Pressable } from 'react-native-web'
-// import * as Clipboard from 'expo-clipboard'
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Text, View, StyleSheet, TouchableOpacity, Pressable, Alert } from 'react-native'
+
+import useStorage from '../../hooks/useStorage'
+import * as Clipboard from 'expo-clipboard'
 
 export function ModalPassword({password, handleClose}) {
-    // const copyClipboard= async () =>{
-    //   await Clipboard.setStringAsync(password);
-    //   alert("copiado para area de transferencia")
-    // }
+  const {getItem, setItem, removeItem} = useStorage()
+    // const [passwordLabel, setPasswordLabel] = useState('') updates futuros
+    const copyClipboard= async () =>{
+      await Clipboard.setStringAsync(password);
+      Alert.alert("Aviso","Senha copiada para a area de transferencia")[{
+        text: "ok"
+      }]
+    }
+    const handleSave = async() =>{
+      await setItem('@pass', password)
+      alert("senha salva")
+    }
+
+
     return (
       <View style={styles.container}>
         <View style={styles.modal}>
           <Text style={{fontSize: 26, fontWeight:"bold", marginTop:10, marginBottom:20}}>Senha gerada</Text>
-          <Pressable style={styles.displaySenha} onPress={navigator.clipboard.writeText(password)}>{/*web */}
-          {/*<Pressable style={styles.displaySenha} onPress={copyClipboard}> mobile*/}
+          {/* <Pressable style={styles.displaySenha} onPress={navigator.clipboard.writeText(password)}>web */}
+          <Pressable style={styles.displaySenha} onPress={copyClipboard}>
             <Text style={styles.text}>{password}</Text>
           </Pressable >
             <View style={{flexDirection:"row", justifyContent:"space-between", width:"90%", marginTop:10, marginBottom:10}}>
@@ -22,7 +32,7 @@ export function ModalPassword({password, handleClose}) {
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.saveButton}>
-                <Text style={styles.text}>Salvar senha</Text>
+                <Text style={styles.text} onPress={handleSave}>Salvar senha</Text>
               </TouchableOpacity>
             </View>
         </View>
