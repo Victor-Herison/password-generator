@@ -15,6 +15,7 @@ export function ModalPassword({password, handleClose}) {
     const handleSave = async() =>{
       await setItem('@pass', password)
       alert("senha salva")
+      handleClose()
     }
 
 
